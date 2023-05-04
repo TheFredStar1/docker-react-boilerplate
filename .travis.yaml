@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+# ran before test
+before_install:
+  # build docker image
+  - docker build -t freddietantoco/docker-react-boilerplate -f Dockerfile.dev .
+
+# commands
+# any return value from any of these commands other than status code 0
+# and our build will fail
+scripts:
+  # CI=true so our test actually returns an exit status code
+  - docker run -e CI=true freddietantoco/docker-react-boilerplate npm run test
